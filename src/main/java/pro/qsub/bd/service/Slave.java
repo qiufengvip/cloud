@@ -20,7 +20,8 @@ import java.util.List;
 public class Slave {
 
     // 主 服务器
-    private final Server MAIN_MASTER = new Server("10.203.10.26","","8080",1);
+    private final Server MAIN_MASTER = new Server("10.203.10.26","","8080",1,0);
+
 
 
     // 当前 主服务器地址    选主完成后需要重新接收
@@ -41,14 +42,15 @@ public class Slave {
     private void   starts(){
         // 开机的 主服务器
         MASTER = MAIN_MASTER;
-        myServer = new Server(getIp(),"1","8080",1);
+        myServer = new Server(getIp(),"1","8080",1,0);
     }
 
 
     //心跳   上qz
     public static void heartbeat(){
         //判断主服务器是不是自己
-
+        if (myServer.getIp().equals(MASTER.getIp()) )
+            return;
         String URL = "http://"+MASTER.getIp() +":"+ MASTER.getPort() +"/cloud_war_exploded/heartbeat";
         // 能不能发送请求
         if (myServer==null)
@@ -72,7 +74,7 @@ public class Slave {
         try {
 //            InetAddress addr = InetAddress.getLocalHost();
 //            return  addr.getHostAddress();
-              return "10.203.15.216";
+              return "10.203.10.26";
 //            System.out.println("IP地址：" + addr.getHostAddress() + "，主机名：" + addr.getHostName());
         } catch (Exception e) {
             e.printStackTrace();

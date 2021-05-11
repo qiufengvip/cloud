@@ -21,5 +21,10 @@ public class Server {
     // 与主服务连接 的状态
     private int state;
 
+    // 最后活动时间
+    private long timestamp;
+
+
+
 
 }
