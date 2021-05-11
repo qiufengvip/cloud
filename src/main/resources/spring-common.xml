@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/task
+http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+
+    <!-- 0.让Spring框架的父容器只扫描M层和D层，不扫描C层 exclude-filter：排除 type="annotation" ：注解
+        expression="org.springframework.stereotype.Controller"：表示C层的注解 -->
+    <context:component-scan base-package="pro.qsub.bd">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 1、配置数据库相关参数properties的属性：${url} -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!-- 2、配置数据库连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxPoolSize" value="40"/>      <!--最大连接数 -->
+        <property name="minPoolSize" value="5"/>       <!--最小连接数 -->
+        <property name="initialPoolSize" value="10"/>      <!--初始化连接池内的数据库连接 -->
+        <property name="maxIdleTime" value="200000"/>  <!--最大空闲时间 -->
+        <property name="idleConnectionTestPeriod" value="60"/>  <!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+    </bean>
+
+
+    <!-- 加载属性文件 -->
+    <!--  <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+         <property name="order" value="1"/>
+          忽略不能读取的属性
+         <property name="ignoreUnresolvablePlaceholders" value="true"/>
+         <property name="locations">
+             <list>
+                 <value>classpath:qiufeng-config.properties</value>
+             </list>
+         </property>
+     </bean>
+      -->
+
+
+    <!--3.Spring框架整合MybatisPlus: 1)加载数据源 2)将实体类的映射资源文件即是**Mapper.xml加载过来 或者是绑定接口
+        3)加载MybatisPlus的插件：例如分页插件，性能优化插件 -->
+
+<!--    <bean id="sqlSessionFactory"-->
+<!--          class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSource"/>-->
+<!--        <property name="configLocation" value="classpath:mybatis-config.xml"/>-->
+
+<!--        &lt;!&ndash; 配置插件 &ndash;&gt;-->
+<!--        <property name="plugins">-->
+<!--            <list>-->
+<!--                &lt;!&ndash; 分页插件 &ndash;&gt;-->
+<!--                <bean-->
+<!--                        class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor">-->
+<!--                    <property name="countSqlParser" ref="countSqlParser"/>-->
+<!--                </bean>-->
+<!--                &lt;!&ndash; 输出每条SQL语句及其执行时间，生产环境不建议使用该插件 &ndash;&gt;-->
+<!--                <bean-->
+<!--                        class="com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor">-->
+<!--                    <property name="format" value="true"/>&lt;!&ndash; 格式化SQL语句 &ndash;&gt;-->
+<!--                    <property name="maxTime" value="1000"/>&lt;!&ndash; sql执行时间超过value值就会停止执行，单位是毫秒 &ndash;&gt;-->
+<!--                </bean>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+    <!-- 4.MP的分页优化 -->
+<!--    <bean id="countSqlParser"-->
+<!--          class="com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize">-->
+<!--    </bean>-->
+
+    <!-- 5.通过mybatis整合Spring的包中的MapperScannerConfigure实现扫描某一路径下的绑定的接口 和生成代理类
+        PS :basePackage:指定sql映射文件(xxxMapper.xml)/绑定的接口所在的包（自动扫描） sqlSessionFactory：为绑定的接口生成代理类的 -->
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!-- 自动的去下面路径扫包，目的是加在sql映射文件(xxxMapper.xml)或者mybatis绑定的接口 -->
+<!--        <property name="basePackage" value="org.example.dao"/>-->
+<!--    </bean>-->
+
+    <!-- 6. 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源 -->
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <!-- 7. 使用声明式事务 transaction-manager：引用上面定义的事务管理器 -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <!-- 任务调度器 -->
+    <task:scheduler id="scheduler" pool-size="10"/>
+    <!--开启注解调度支持 @Scheduled -->
+    <task:annotation-driven executor="scheduler" proxy-target-class="true"/>
+
+    <!--Spring中引入其他配置文件 -->
+<!--    <import resource="classpath*:spring-quartz.xml" />-->
+</beans>

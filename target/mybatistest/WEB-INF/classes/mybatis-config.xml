@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 
+    Mybatis主要干两件事：连库+增删改查
+    Myabtis的配置文件的主要内容：配置环境，加载映射（xxMapper.xml或者IxxMapper.java）
+
+ -->
+
+
+    <!-- 接口绑定的映射路径 -->
+	<mappers>
+ 		<!-- <mapper resource="com/rj/bd/admin/dao/Query.xml" /> -->
+	</mappers>
+
+
+
+
+
+
+
+
+</configuration>  

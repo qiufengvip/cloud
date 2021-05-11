@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    &lt;!&ndash; 要调用的工作类 &ndash;&gt;-->
+<!--    <bean id="quartzRecord" class="pro.qiufeng.bd.utils.QuartzUtils"/>-->
+
+<!--    &lt;!&ndash; 将需要执行的定时任务注入JOB中。 &ndash;&gt;-->
+<!--    <bean id="testJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+<!--        <property name="targetObject" ref="quartzRecord"/>-->
+<!--        &lt;!&ndash; 任务类中需要执行的方法 &ndash;&gt;-->
+<!--        <property name="targetMethod" value="execute"/>-->
+<!--        &lt;!&ndash; 上一次未执行完成的，要等待有再执行。 &ndash;&gt;-->
+<!--        <property name="concurrent" value="false"/>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; 定义trigger 触发器 [五分钟执行一次]&ndash;&gt;-->
+<!--    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+<!--        <property name="jobDetail" ref="testJob"/>-->
+<!--        <property name="cronExpression" value="0 0 * * * ? "/>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 &ndash;&gt;-->
+<!--    <bean id="startQuertz" lazy-init="false" autowire="no"-->
+<!--          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+<!--        <property name="triggers">-->
+<!--            <list>-->
+<!--                <ref bean="cronTrigger" />-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+</beans>

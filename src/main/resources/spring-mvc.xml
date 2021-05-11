@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="  
+    http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- 1.开启注解/注解驱动 -->
+	<mvc:annotation-driven />
+	<!-- <mvc:resources mapping="/resources/*" location="/resources/"/> -->
+
+	<!-- 2.自动注解扫描包 -->
+	<context:component-scan base-package="pro.qsub.bd" use-default-filters="false">
+		<context:include-filter type="annotation"  expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+
+	<!-- 3.定义跳转的文件的前后缀 ，视图模式配置 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+
+	<!--6.使用SpringMvc自带的异常处理类：SimpleMappingExceptionResolver <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
+	<!-- 5.1定义默认的异常处理页面:只要程序中有异常就转向到error.jsp <property name="defaultErrorView" 
+		value="error"/> -->
+	<!-- 5.2定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception PS：我们还想在异常处理页面上获取到异常的详细信息 
+		exmsg：异常信息的形参名，在异常处理页面上可以通过EL表达式获取到具体的异常信息 <property name="exceptionAttribute" 
+		value="exmsg"/> -->
+	<!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常页文件名作为值， 将不同的异常映射到不同的页面上，即特事特办 <property 
+		name="exceptionMappings"> <props> <prop key="java.lang.NullPointerException">error2</prop> -->
+	<!--这里还可以继续扩展对不同异常类型的处理 </props> </property> </bean> -->
+
+	<!-- 7.SpringMVC上传文件时，需要配置CommonsMultipartResolver处理器 -->
+<!--	<bean id="multipartResolver"-->
+<!--		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+<!--		<property name="defaultEncoding" value="UTF-8" />-->
+		<!-- 指定所上传文件的总大小不能超过5M。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+		<!-- <property name="maxUploadSize" value="-1" /> -->
+<!--		<property name="maxUploadSize" value="5242880"></property>-->
+<!--	</bean>-->
+
+
+
+	<!-- 跨域攔截器 -->
+<!--	<mvc:interceptors>-->
+<!--		<mvc:interceptor>-->
+<!--			<mvc:mapping path="/**" />-->
+<!--			<bean class="org.example.utils.CORSInterceptor" />-->
+<!--		</mvc:interceptor>-->
+<!--	</mvc:interceptors>-->
+
+
+</beans>
