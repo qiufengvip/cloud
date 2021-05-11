@@ -19,7 +19,7 @@ public class Server {
     //端口
     private  String port;
     // 与主服务连接 的状态
-    private boolean state;
+    private int state;
 
 
 }

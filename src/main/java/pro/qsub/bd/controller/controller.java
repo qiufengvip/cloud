@@ -23,8 +23,16 @@ public class controller {
      * @param server
      * @return
      */
-    @RequestMapping("server")
+    @RequestMapping("heartbeat")
     public Map<String, Object> heartbeat(Server server){
         return Master.acceptHeartbeat(server);
     }
+
+    @RequestMapping("getserverlist")
+    public Map<String, Object> getServerList(){
+        return Master.getServerList();
+    }
+
+
+
 }

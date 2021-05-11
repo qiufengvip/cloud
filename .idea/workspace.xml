@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="" />
+    <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/controller/controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/controller/controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/controller/controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/controller/controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/service.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/utils/MasterUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/utils/SlaveUtil.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +27,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -47,6 +56,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1sK8bbHergP6cinPbey1XmDv19l" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
