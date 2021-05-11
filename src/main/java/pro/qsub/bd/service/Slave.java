@@ -20,7 +20,7 @@ import java.util.List;
 public class Slave {
 
     // 主 服务器
-    private final Server MAIN_MASTER = new Server("","","",true);
+    private final Server MAIN_MASTER = new Server("","","",1);
 
 
     // 当前 主服务器地址    选主完成后需要重新接收
@@ -41,7 +41,7 @@ public class Slave {
     private void   starts(){
         // 开机的 主服务器
         MASTER = MAIN_MASTER;
-        myServer = new Server(getIp(),"1","8080",true);
+        myServer = new Server(getIp(),"1","8080",1);
     }
 
 

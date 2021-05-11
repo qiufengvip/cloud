@@ -104,5 +104,5 @@ http://www.springframework.org/schema/task/spring-task-3.2.xsd">
     <task:annotation-driven executor="scheduler" proxy-target-class="true"/>
 
     <!--Spring中引入其他配置文件 -->
-<!--    <import resource="classpath*:spring-quartz.xml" />-->
+    <import resource="classpath*:spring-quartz.xml" />
 </beans>

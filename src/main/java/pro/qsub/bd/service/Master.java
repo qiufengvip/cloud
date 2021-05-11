@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import pro.qsub.bd.entity.Server;
 import pro.qsub.bd.utils.Putdata;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ import java.util.Map;
 public class Master {
 
     //所有服务器列表《》
-    private static  List<Server> SLAVE_list;
+    private static  List<Server> SLAVE_list=new ArrayList<>();
 
 
     /**

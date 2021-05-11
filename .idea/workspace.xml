@@ -10,11 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/controller/controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/controller/controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/controller/controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/controller/controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/service.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/utils/MasterUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/utils/SlaveUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Master.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Master.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Slave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Slave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/entity/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/entity/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Slave.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Slave.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-common.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-common.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-quartz.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
