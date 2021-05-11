@@ -20,7 +20,7 @@ import java.util.List;
 public class Slave {
 
     // 主 服务器
-    private final Server MAIN_MASTER = new Server("","","",1);
+    private final Server MAIN_MASTER = new Server("10.203.10.26","","8080",1);
 
 
     // 当前 主服务器地址    选主完成后需要重新接收
@@ -49,7 +49,7 @@ public class Slave {
     public static void heartbeat(){
         //判断主服务器是不是自己
 
-        String URL = MASTER.getIp() +":"+ MASTER.getPort() +"/cloud_war_exploded/heartbeat";
+        String URL = "http://"+MASTER.getIp() +":"+ MASTER.getPort() +"/cloud_war_exploded/heartbeat";
         // 能不能发送请求
         if (myServer==null)
             return;
@@ -58,6 +58,7 @@ public class Slave {
         map.put("ip",myServer.getIp());
         map.put("port",myServer.getPort());
         map.put("name",myServer.getName());
+        map.put("state","1");
         HttpRequest httpRequest = new HttpRequest( URL,"POST", map);
 
     }
@@ -69,10 +70,11 @@ public class Slave {
      */
     public static String getIp(){
         try {
-            InetAddress addr = InetAddress.getLocalHost();
-            return  addr.getHostAddress();
+//            InetAddress addr = InetAddress.getLocalHost();
+//            return  addr.getHostAddress();
+              return "10.203.15.216";
 //            System.out.println("IP地址：" + addr.getHostAddress() + "，主机名：" + addr.getHostName());
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

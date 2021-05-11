@@ -10,11 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Master.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Master.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Slave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Slave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/entity/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/entity/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pro/qsub/bd/service/Slave.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pro/qsub/bd/service/Slave.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring-quartz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Slave.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Slave.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-common.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-common.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/spring-quartz.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +54,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="localRepository" value="D:\maven\apache-maven-3.6.1-bin\apache-maven-3.6.1\maven-repo" />
-        <option name="mavenHome" value="D:/maven/apache-maven-3.6.1" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../maven/apache-maven-3.6.1" />
         <option name="userSettingsFile" value="D:\maven\apache-maven-3.6.1\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
@@ -90,21 +93,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Tomcat 9.0.40" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.40" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/cloud_war_exploded/" />
+      <option name="OPEN_IN_BROWSER" value="false" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="cloud:war exploded">
@@ -140,6 +130,21 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
           <option name="USE_DEFAULT" value="true" />
@@ -191,5 +196,8 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

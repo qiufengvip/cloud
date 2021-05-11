@@ -18,7 +18,7 @@
     <!-- 定义trigger 触发器 [五分钟执行一次]-->
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="testJob"/>
-        <property name="cronExpression" value="0 0 * * * ? "/>
+        <property name="cronExpression" value="0,10,20,30,40,50 * * * * ?"/>
     </bean>
 
     <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
