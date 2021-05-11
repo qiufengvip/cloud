@@ -61,6 +61,7 @@ public class Slave {
         map.put("port",myServer.getPort());
         map.put("name",myServer.getName());
         map.put("state","1");
+        map.put("timestamp",System.currentTimeMillis()+"");
         HttpRequest httpRequest = new HttpRequest( URL,"POST", map);
 
     }

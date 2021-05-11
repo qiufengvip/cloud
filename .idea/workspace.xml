@@ -10,13 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/entity/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/entity/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Master.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Master.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Slave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Slave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pro/qsub/bd/service/Slave.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pro/qsub/bd/service/Slave.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Master.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Master.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Slave.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Slave.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
