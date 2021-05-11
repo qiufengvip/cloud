@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pro.qsub.bd.entity.Server;
 import pro.qsub.bd.service.Master;
+import pro.qsub.bd.service.Slave;
 
 import java.util.Map;
 
@@ -23,14 +24,24 @@ public class controller {
      * @param server
      * @return
      */
-    @RequestMapping("heartbeat")
+    @RequestMapping("/heartbeat")
     public Map<String, Object> heartbeat(Server server){
         return Master.acceptHeartbeat(server);
     }
 
-    @RequestMapping("getserverlist")
+    @RequestMapping("/getserverlist")
     public Map<String, Object> getServerList(){
         return Master.getServerList();
+    }
+
+
+    /**
+     * @desc 获取自身信息
+     * @return
+     */
+    @RequestMapping("/getmyserverinfo")
+    public Server getmyserverinfo(){
+        return Slave.getmyserverinfo();
     }
 
 

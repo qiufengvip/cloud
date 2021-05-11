@@ -52,6 +52,8 @@ public class Slave {
     }
 
 
+
+
     //心跳   上qz
     public static void heartbeat() {
         System.out.println("心跳：开始");
@@ -76,6 +78,9 @@ public class Slave {
             HttpRequest httpRequest = new HttpRequest(URL, "POST", map);
             // 重连接成功 失败次数 == 0
             Slave.failed = 0;
+            //更新自身信息
+            myServer.setTimestamp(System.currentTimeMillis());
+            myServer.setState(1);
             // 存入服务穷链表
             parseJsonToObject(httpRequest.getData());
             // 主没有死 但是大部分从连接不上主
@@ -83,7 +88,8 @@ public class Slave {
 
 
         } catch (Exception e) {
-
+            //更新自己的状态 为0
+            myServer.setState(0);
             // 与主连接失败3次,找别的从 执行策略
             if (Slave.failed >= 3) updateMaster();
             System.out.println("请求不到主服务器了");
@@ -120,7 +126,7 @@ public class Slave {
         // 遍历所有的服务器
         for (Server server : SLAVE_list) {
             // 请求的url
-            String URL = "http://" + server.getIp() + ":" + MASTER.getPort() + "/cloud_war_exploded/heartbeat";
+            String URL = "http://" + server.getIp() + ":" + MASTER.getPort() + "/cloud_war_exploded/getmyserverinfo";
             try {
                 // 给从服务发送请求
                 HttpRequest httpRequest = new HttpRequest(URL, "GET");
@@ -161,6 +167,13 @@ public class Slave {
         Slave.SLAVE_list = new Gson().fromJson(obj, RequestData.class).getData();
     }
 
+    /**
+     * @desc
+     */
+    public static Server getmyserverinfo(){
+        return myServer;
+    }
+
 
     /**
      * @return
@@ -170,7 +183,7 @@ public class Slave {
         try {
 //            InetAddress addr = InetAddress.getLocalHost();
 //            return  addr.getHostAddress();
-            return "10.203.15.216";
+            return "10.203.10.26";
 //            System.out.println("IP地址：" + addr.getHostAddress() + "，主机名：" + addr.getHostName());
         } catch (Exception e) {
             e.printStackTrace();
