@@ -36,7 +36,7 @@ public class HttpRequest {
 	private String data;
 //    Post(String url, String param, HashMap<String, String> headers, String cookie) {
 
-	public HttpRequest(String url, String mode) {
+	public HttpRequest(String url, String mode) throws Exception {
 		/**
 		 * 只有url和访问类型
 		 */
@@ -50,7 +50,7 @@ public class HttpRequest {
 
 	}
 
-	public HttpRequest(String url, String mode, HashMap<String, String> submitdata) {
+	public HttpRequest(String url, String mode, HashMap<String, String> submitdata) throws Exception{
 		/**
 		 * url 访问类型 提交数据
 		 */
@@ -64,7 +64,7 @@ public class HttpRequest {
 		}
 	}
 
-	public HttpRequest(String url, String mode, HashMap<String, String> headers, String submitdata) {
+	public HttpRequest(String url, String mode, HashMap<String, String> headers, String submitdata) throws Exception{
 
 		/**
 		 * url 提交类型 协议头 提交数据
@@ -81,7 +81,7 @@ public class HttpRequest {
 		}
 	}
 
-	public HttpRequest(String url, String mode, HashMap<String, String> headers, HashMap<String, String> submitdata) {
+	public HttpRequest(String url, String mode, HashMap<String, String> headers, HashMap<String, String> submitdata) throws Exception{
 
 		/**
 		 * url 提交类型 协议头 提交数据
@@ -99,7 +99,7 @@ public class HttpRequest {
 		}
 	}
 
-	public HttpRequest(String url, String mode, String cookies, HashMap<String, String> submitdata) {
+	public HttpRequest(String url, String mode, String cookies, HashMap<String, String> submitdata) throws Exception{
 		/**
 		 * url 访问类型 cookie 提交数据
 		 */
@@ -116,7 +116,7 @@ public class HttpRequest {
 	}
 
 	public HttpRequest(String url, String mode, HashMap<String, String> headers, String cookies,
-			HashMap<String, String> submitdata) {
+			HashMap<String, String> submitdata) throws Exception{
 
 		/**
 		 * url 访问类型 协议头 cookie 提交数据
@@ -212,7 +212,7 @@ public class HttpRequest {
 	 * @param url   发送请求的URL
 	 * @param param 请求参数
 	 */
-	private void Post(String url, String param, HashMap<String, String> headers, String cookie) {
+	private void Post(String url, String param, HashMap<String, String> headers, String cookie) throws Exception {
 
 		/**
 		 * 参数HashMap<String,String> headers说明： HashMap<String,String> headers =new
@@ -221,7 +221,7 @@ public class HttpRequest {
 
 		StringBuilder result = new StringBuilder();
 		String line;
-		try {
+
 			URL realUrl = new URL(url);
 			// 打开和URL之间的连接
 			URLConnection conn = realUrl.openConnection();
@@ -265,10 +265,7 @@ public class HttpRequest {
 			while ((line = in.readLine()) != null) {
 				result.append("\n").append(line);
 			}
-		} catch (Exception e) {
-			System.out.println("发送POST请求出现异常" + e);
-			e.printStackTrace();
-		}
+
 
 		this.data = result.toString();
 //        System.out.println(this.data);
