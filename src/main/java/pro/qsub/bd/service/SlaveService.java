@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import org.springframework.stereotype.Component;
 import pro.qsub.bd.entity.RequestData;
 import pro.qsub.bd.entity.Server;
+import pro.qsub.bd.utils.CircleVoteRole;
 import pro.qsub.bd.utils.HttpRequest;
 
 import javax.annotation.PostConstruct;
@@ -107,7 +108,7 @@ public class SlaveService {
                 //让连接失败次数重新归零
                 SlaveService.failed = 0;
                 // 执行霸道选举 换主策略
-                updateMaster();
+                MASTER= Vote.updateMaster(SLAVE_list, new CircleVoteRole());
             }else {
                 SlaveService.failed += 1;
                 System.err.println("==========");
@@ -131,64 +132,10 @@ public class SlaveService {
             }
         }
         if (SLAVE_list.size() / 2 < item) {  //更新主
-            updateMaster();
+//            updateMaster();
+            MASTER= Vote.updateMaster(SLAVE_list, new CircleVoteRole());
         }
 
-    }
-
-    /**
-     * @Desc 更换主服务于器策略
-     *        使用霸道选举算法
-     */
-    private static void updateMaster() {
-        System.out.println("=================");
-        System.out.println("||开始更换主服务器||");
-        System.out.println("=================");
-        //正常的服务器
-        List<Server> workingServes = new ArrayList<>();
-        if (SLAVE_list==null) SLAVE_list = new ArrayList<Server>();
-
-        // 遍历所有的服务器
-        for (Server server : SLAVE_list) {
-            // 请求的url
-            String URL = "http://" + server.getIp() + ":" + MASTER.getPort() + "/cloud_war_exploded/getmyserverinfo";
-            try {
-                // 给从服务发送请求
-                HttpRequest httpRequest = new HttpRequest(URL, "GET");
-                Server servesFromJson = new Gson().fromJson(httpRequest.getData(), Server.class);
-                //解析返回数据 并加入正常的list中
-                workingServes.add(servesFromJson);
-
-                System.out.println("===与其他从服务器通讯===");
-                System.out.println("||" +"通讯服务器信息"+ "||");
-                System.out.println("||服务器IP:"+ servesFromJson.getIp()+"\t\t||");
-                System.out.println("||服务器port:"+ servesFromJson.getPort()+"\t\t||");
-                System.out.println("||服务器与主的状态:"+ servesFromJson.getState()+"\t\t(1=与主正常，0=与主断开)||");
-                System.out.println("=====================");
-            } catch (Exception e) {
-//                e.printStackTrace();
-                System.err.println("===与其他从服务器通讯===");
-                System.err.println("||" +"通讯服务器信息"+ "||");
-                System.err.println("||服务器IP:"+ server.getIp()+"\t\t||");
-                System.err.println("||服务器port:"+ server.getPort()+"\t\t||");
-                System.err.println("||服务器与主的状态:"+ server.getState()+"\t\t(1=与主正常，0=与主断开)||");
-                System.err.println("=====================");
-            }
-
-        }
-
-        /**
-         * 选举规则使用
-         */
-        Server server = getServer(workingServes);
-
-
-        // 修改主服务器
-        MASTER = server;
-        System.out.println("********选举完毕（新主的信息）*********");
-        System.out.println("||主服务器IP:"+ MASTER.getIp()+"\t\t||");
-        System.out.println("||主务器port:"+ MASTER.getPort()+"\t\t||");
-        System.out.println("*********************************");
     }
 
     /**
