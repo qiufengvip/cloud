@@ -138,27 +138,6 @@ public class SlaveService {
 
     }
 
-    /**
-     * 选举规则
-     * @param workingServes
-     * @return
-     */
-    private static Server getServer(List<Server> workingServes) {
-        int item = 0;
-        Server server = myServer; // 选出来的主
-        // 选主策略
-        for (Server workingServe : workingServes) {
-            String sal = "";
-            int i = workingServe.getIp().lastIndexOf('.');
-            if (i > 0) {
-                sal = workingServe.getIp().substring(i + 1).trim();
-            }
-            int anInt = Integer.parseInt(sal);
-            if (anInt > item) item = anInt;
-            server = workingServe;
-        }
-        return server;
-    }
 
 
     /**
@@ -210,6 +189,10 @@ public class SlaveService {
     }
 
 
-
-
+    /**
+     * @Desc 获取自己服务器的信息
+     */
+    public static Server getMyServer() {
+        return myServer;
+    }
 }
