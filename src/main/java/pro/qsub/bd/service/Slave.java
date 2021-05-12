@@ -27,7 +27,7 @@ import java.util.Map;
 public class Slave {
 
     // 主 服务器
-    private final Server MAIN_MASTER = new Server("10.203.10.26", "", "8080", 1, 0);
+    private final Server MAIN_MASTER = new Server("10.2.25.24", "", "8080", 1, 0);
 
 
     // 当前 主服务器地址    选主完成后需要重新接收
@@ -48,7 +48,7 @@ public class Slave {
     private void starts() {
         // 开机的 主服务器
         MASTER = MAIN_MASTER;
-        myServer = new Server(getIp(), "1", "8080", 1, 0);
+        myServer = new Server(getIp(), getHostName(), "8080", 1, 0);
     }
 
 
@@ -181,15 +181,33 @@ public class Slave {
      */
     public static String getIp() {
         try {
-//            InetAddress addr = InetAddress.getLocalHost();
-//            return  addr.getHostAddress();
-            return "10.203.10.26";
+            InetAddress addr = InetAddress.getLocalHost();
+            return  addr.getHostAddress();
+//            return "10.203.10.26";
 //            System.out.println("IP地址：" + addr.getHostAddress() + "，主机名：" + addr.getHostName());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    /**
+     * @desc 获取本机名称
+     * @return
+     */
+    public static String getHostName() {
+        try {
+            InetAddress addr = InetAddress.getLocalHost();
+            return  addr.getHostName();
+//            return "10.203.10.26";
+//            System.out.println("IP地址：" + addr.getHostAddress() + "，主机名：" + addr.getHostName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 
 
 }
