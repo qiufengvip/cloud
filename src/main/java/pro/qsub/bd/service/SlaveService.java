@@ -177,6 +177,26 @@ public class SlaveService {
 
         }
 
+        /**
+         * 选举规则使用
+         */
+        Server server = getServer(workingServes);
+
+
+        // 修改主服务器
+        MASTER = server;
+        System.out.println("********选举完毕（新主的信息）*********");
+        System.out.println("||主服务器IP:"+ MASTER.getIp()+"\t\t||");
+        System.out.println("||主务器port:"+ MASTER.getPort()+"\t\t||");
+        System.out.println("*********************************");
+    }
+
+    /**
+     * 选举规则
+     * @param workingServes
+     * @return
+     */
+    private static Server getServer(List<Server> workingServes) {
         int item = 0;
         Server server = myServer; // 选出来的主
         // 选主策略
@@ -190,12 +210,7 @@ public class SlaveService {
             if (anInt > item) item = anInt;
             server = workingServe;
         }
-        // 修改主服务器
-        MASTER = server;
-        System.out.println("********选举完毕（新主的信息）*********");
-        System.out.println("||主服务器IP:"+ MASTER.getIp()+"\t\t||");
-        System.out.println("||主务器port:"+ MASTER.getPort()+"\t\t||");
-        System.out.println("*********************************");
+        return server;
     }
 
 
