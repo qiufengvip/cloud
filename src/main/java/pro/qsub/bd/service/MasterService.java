@@ -26,7 +26,10 @@ public class MasterService {
     public static Map<String, Object> acceptHeartbeat(Server server){
         //加入服务器列表
         SLAVE_list.put(server.getIp(),server);
-
+        System.out.println("===接收到从服务器===");
+        System.out.println("||服务器IP:"+ server.getIp()+"\t\t||");
+        System.out.println("||服务器port:"+ server.getPort()+"\t\t||");
+        System.out.println("=====================");
         //组合返回数据
         return Putdata.printf(0,"成功",slave_listToList());
     }
@@ -38,9 +41,9 @@ public class MasterService {
 
     /**
      * @desc 返回当前服务器列表的
-     * @return
      */
     public static List<Server> slave_listToList(){
+
         ArrayList<Server> servers = new ArrayList<>();
         for ( Map.Entry<String, Server>entry:SLAVE_list.entrySet()) {
             if (System.currentTimeMillis() - entry.getValue().getTimestamp() > 15*1000 ){

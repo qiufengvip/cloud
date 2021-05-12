@@ -11,15 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/controller/controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/controller/controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/entity/RequestData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/entity/RequestData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Master.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/MasterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/Slave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/SlaveService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/QuartzUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/QuartzUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-quartz.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pro/qsub/bd/service/Slave.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/mybatistest/WEB-INF/classes/pro/qsub/bd/service/Slave.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/MasterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/MasterService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +192,7 @@
       <workItem from="1620609995096" duration="1548000" />
       <workItem from="1620777715960" duration="225000" />
       <workItem from="1620785542304" duration="81000" />
-      <workItem from="1620786614162" duration="2485000" />
+      <workItem from="1620786614162" duration="3133000" />
     </task>
     <servers />
   </component>
