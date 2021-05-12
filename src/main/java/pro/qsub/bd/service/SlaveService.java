@@ -24,7 +24,7 @@ import java.util.Map;
  */
 
 @Component
-public class Slave {
+public class SlaveService {
 
     // 主 服务器
     private final Server MAIN_MASTER = new Server("10.2.25.24", "", "8080", 1, 0);
@@ -52,32 +52,44 @@ public class Slave {
     }
 
 
-
-
-    //心跳   上qz
+    /**
+     * @Desc 心跳 qz
+     */
     public static void heartbeat() {
-        System.out.println("心跳：开始");
-        //判断主服务器是不是自己
+
+        //判断主服务器是不是自己  是自己的话就不用在心跳了
         if (myServer.getIp().equals(MASTER.getIp()))
             return;
+        System.out.println("===================");
+        System.out.println("||心跳开始\t\t||");
+        System.out.println("||主服务器IP:"+ MASTER.getIp()+"\t\t||");
+        System.out.println("||主服务器port:"+ MASTER.getPort()+"\t\t||");
+        System.out.println("--------------------------");
+        System.out.println("||当前服务器IP:"+ myServer.getIp()+"\t\t||");
+        System.out.println("||当前服务器port:"+ myServer.getPort()+"\t\t||");
+        System.out.println("===================");
         String URL = "http://" + MASTER.getIp() + ":" + MASTER.getPort() + "/cloud_war_exploded/heartbeat";
         // 能不能发送请求
         if (myServer == null)
             return;
-
+        //向主服务器传递的参数
         HashMap<String, String> map = new HashMap<>();
+        // 本机 ip
         map.put("ip", myServer.getIp());
+        // 本机监听的端口
         map.put("port", myServer.getPort());
+        // 本机的姓名
         map.put("name", myServer.getName());
+        // 本机与主服务器连接的状态
         map.put("state", "1");
+        // 请求发送时间
         map.put("timestamp", System.currentTimeMillis() + "");
-
-        try { // 主服务器异常
-
-            System.out.println(URL);
+        // 主服务器异常
+        try {
+//            System.out.println(URL);
             HttpRequest httpRequest = new HttpRequest(URL, "POST", map);
             // 重连接成功 失败次数 == 0
-            Slave.failed = 0;
+            SlaveService.failed = 0;
             //更新自身信息
             myServer.setTimestamp(System.currentTimeMillis());
             myServer.setState(1);
@@ -91,9 +103,19 @@ public class Slave {
             //更新自己的状态 为0
             myServer.setState(0);
             // 与主连接失败3次,找别的从 执行策略
-            if (Slave.failed >= 3) updateMaster();
-            System.out.println("请求不到主服务器了");
-            Slave.failed += 1;
+            if (SlaveService.failed >= 3) {
+                //让连接失败次数重新归零
+                SlaveService.failed = 0;
+                // 执行霸道选举 换主策略
+                updateMaster();
+            }else {
+                SlaveService.failed += 1;
+                System.err.println("==========");
+                System.err.println("|| 与主服务器连接出现异常||");
+                System.err.println("|| 异常次数为："+ SlaveService.failed +"\t||");
+                System.err.println("==========");
+            }
+
         }
 
     }
@@ -115,10 +137,13 @@ public class Slave {
     }
 
     /**
-     * @Desc 跟换主服务于器策略
+     * @Desc 更换主服务于器策略
+     *        使用霸道选举算法
      */
     private static void updateMaster() {
-        System.out.println("重选-------------------------------------------------");
+        System.out.println("=================");
+        System.out.println("||开始更换主服务器||");
+        System.out.println("=================");
         //正常的服务器
         List<Server> workingServes = new ArrayList<>();
         if (SLAVE_list==null) SLAVE_list = new ArrayList<Server>();
@@ -130,15 +155,27 @@ public class Slave {
             try {
                 // 给从服务发送请求
                 HttpRequest httpRequest = new HttpRequest(URL, "GET");
+                Server servesFromJson = new Gson().fromJson(httpRequest.getData(), Server.class);
                 //解析返回数据 并加入正常的list中
-                workingServes.add(new Gson().fromJson(httpRequest.getData(), Server.class));
+                workingServes.add(servesFromJson);
 
+                System.out.println("===与其他从服务器通讯===");
+                System.out.println("||" +"通讯服务器信息"+ "||");
+                System.out.println("||服务器IP:"+ servesFromJson.getIp()+"\t\t||");
+                System.out.println("||服务器port:"+ servesFromJson.getPort()+"\t\t||");
+                System.out.println("||服务器与主的状态:"+ servesFromJson.getState()+"\t\t(1=与主正常，0=与主断开)||");
+                System.out.println("=====================");
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                System.err.println("===与其他从服务器通讯===");
+                System.err.println("||" +"通讯服务器信息"+ "||");
+                System.err.println("||服务器IP:"+ server.getIp()+"\t\t||");
+                System.err.println("||服务器port:"+ server.getPort()+"\t\t||");
+                System.err.println("||服务器与主的状态:"+ server.getState()+"\t\t(1=与主正常，0=与主断开)||");
+                System.err.println("=====================");
             }
 
         }
-
 
         int item = 0;
         Server server = myServer; // 选出来的主
@@ -155,7 +192,10 @@ public class Slave {
         }
         // 修改主服务器
         MASTER = server;
-        System.out.println("修改主服务成功 ：" + MASTER);
+        System.out.println("********选举完毕（新主的信息）*********");
+        System.out.println("||主服务器IP:"+ MASTER.getIp()+"\t\t||");
+        System.out.println("||主务器port:"+ MASTER.getPort()+"\t\t||");
+        System.out.println("*********************************");
     }
 
 
@@ -164,7 +204,7 @@ public class Slave {
      * @Desc 存入服务器列表数据
      */
     public static void parseJsonToObject(String obj) {
-        Slave.SLAVE_list = new Gson().fromJson(obj, RequestData.class).getData();
+        SlaveService.SLAVE_list = new Gson().fromJson(obj, RequestData.class).getData();
     }
 
     /**

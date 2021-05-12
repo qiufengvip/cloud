@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestData {
-    private Integer code;
-    private String msg;
-    private List<Server> data;
+    private Integer code;  // 状态
+    private String msg;  // 信息
+    private List<Server> data;  // 服务器信息
 }

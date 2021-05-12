@@ -14,7 +14,7 @@ import java.util.*;
  */
 
 @Component
-public class Master {
+public class MasterService {
 
     //所有服务器列表《》
     private static  Map<String, Server> SLAVE_list=new HashMap<>();

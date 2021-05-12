@@ -12,7 +12,7 @@
         <!-- 任务类中需要执行的方法 -->
         <property name="targetMethod" value="execute"/>
         <!-- 上一次未执行完成的，要等待有再执行。 -->
-        <property name="concurrent" value="false"/>
+        <property name="concurrent" value="true"/>
     </bean>
 
     <!-- 定义trigger 触发器 [五分钟执行一次]-->
