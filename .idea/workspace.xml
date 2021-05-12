@@ -10,8 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/MasterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/MasterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/HttpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/HttpRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +39,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.1.1/mybatis-plus-extension-3.1.1-sources.jar!/com/baomidou/mybatisplus/extension/plugins/pagination/Page.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -94,6 +98,7 @@
   <component name="RunManager">
     <configuration name="Tomcat 9.0.40" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.40" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="OPEN_IN_BROWSER" value="false" />
+      <option name="COMMON_VM_ARGUMENTS" value="-Dfile.encoding=UTF-8" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="cloud:war exploded">
