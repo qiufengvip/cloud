@@ -48,10 +48,12 @@ public class SlaveService {
     //日志文件地址
     private static String logPath;
 
-    /**
-     * 初始化
-     */
-    static {
+
+
+
+    //启动类
+    @PostConstruct
+    private void starts() {
         System.out.println("==============================开始读取配置文件===============================");
         try {
             String IniPath = SlaveService.class.getClassLoader().getResource("sever.ini").getFile();
@@ -78,12 +80,8 @@ public class SlaveService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
 
-    //启动类
-    @PostConstruct
-    private void starts() {
         // 开机的 主服务器
         MASTER = MAIN_MASTER;
         myServer = new Server(getIp(), getHostName(), "8080", 1, 0);
