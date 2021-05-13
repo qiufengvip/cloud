@@ -10,6 +10,7 @@ import pro.qsub.bd.entity.Server;
 import pro.qsub.bd.utils.CircleVoteRole;
 import pro.qsub.bd.utils.HttpRequest;
 import pro.qsub.bd.utils.IniUtil;
+import pro.qsub.bd.utils.Putdata;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -200,6 +201,14 @@ public class SlaveService {
 
 
     /**
+     * @desc
+     */
+    public static Server getmymasterserverinfo() {
+        return MASTER;
+    }
+
+
+    /**
      * @return
      * @desc 获取本机IP 地址
      */
@@ -237,5 +246,11 @@ public class SlaveService {
      */
     public static Server getMyServer() {
         return myServer;
+    }
+
+
+    public static Map<String, Object> getlog() {
+        String getlog = IniUtil.getlog(logPath);
+        return Putdata.printf(0, "获取成功", getlog);
     }
 }

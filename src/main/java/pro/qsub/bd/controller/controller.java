@@ -44,5 +44,25 @@ public class controller {
     }
 
 
+    /**
+     * @desc 获取主服务器信息
+     * @return
+     */
+    @RequestMapping("/getmymasterserverinfo")
+    public Server getmymasterserverinfo(){
+        return SlaveService.getmymasterserverinfo();
+    }
+
+    /**
+     * @desc 获取log日志
+     * @return
+     */
+    @RequestMapping("/getlog")
+    public Map<String, Object> getlog(){
+        return SlaveService.getlog();
+    }
+
+
+
 
 }
