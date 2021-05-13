@@ -12,7 +12,9 @@
     <list default="true" id="5642f7e8-2bcd-48ea-8027-04ce10a074f3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/SlaveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/service/SlaveService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pro/qsub/bd/utils/HttpRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pro/qsub/bd/utils/HttpRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/IniUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/IniUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/mybatistest/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +42,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.1.1/mybatis-plus-extension-3.1.1-sources.jar!/com/baomidou/mybatisplus/extension/plugins/pagination/Page.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -51,7 +56,6 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="localRepository" value="D:\maven\apache-maven-3.6.1-bin\apache-maven-3.6.1\maven-repo" />
-        <option name="mavenHome" value="$PROJECT_DIR$/../../../../maven/apache-maven-3.6.1" />
         <option name="userSettingsFile" value="D:\maven\apache-maven-3.6.1\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
@@ -84,6 +88,9 @@
     <property name="project.structure.proportion" value="0.15169661" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -225,14 +232,14 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Tomcat Server.Tomcat 9.0.40" />
       <item itemvalue="Application.IniUtil" />
       <item itemvalue="Application.SlaveService" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.40" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SlaveService" />
         <item itemvalue="Application.IniUtil" />
+        <item itemvalue="Application.SlaveService" />
       </list>
     </recent_temporary>
   </component>
@@ -276,7 +283,24 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/IniUtil.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/pro/qsub/bd/utils/IniUtil.java</url>
+          <line>200</line>
+          <properties class="pro.qsub.bd.utils.IniUtil" method="main">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

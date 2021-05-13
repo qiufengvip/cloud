@@ -1,6 +1,10 @@
 package pro.qsub.bd.utils;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,155 +15,130 @@ import java.util.regex.Pattern;
  */
 public class IniUtil {
     /**
-     * 这是个配置文件操作类，用来读取和设置ini配置文件
-     *  @author  由月
-     *  @version  2004-08-18
+     * 去除ini文件中的注释，以";"或"#"开头，顺便去除UTF-8等文件的BOM头
+     * @param source
+     * @return
      */
-    /**
-     * 从ini配置文件中读取变量的值
-     *  @param  file 配置文件的路径
-     *  @param  section 要获取的变量所在段名称
-     *  @param  variable 要获取的变量名称
-     *  @param  defaultValue 变量名称不存在时的默认值
-     *  @return  变量的值
-     *  @throws  IOException 抛出文件操作可能出现的io异常
-     */
+    private static String removeIniComments(String source){
+        String result = source;
 
-    public static String getProfileString(String file, String section, String variable, String defaultValue)
-            throws IOException {
-
-        String strLine, value = "";
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        boolean isInSection = false ;
-        try {
-            while((strLine = bufferedReader.readLine()) != null) {
-                strLine = strLine.trim();
-                strLine = strLine.split("[;]")[0];
-                Pattern p;
-                Matcher m;
-                p = Pattern.compile("file://[//s*.*//s*//]");
-                m = p.matcher((strLine));
-                if(m.matches()) {
-                    p = Pattern.compile("file://[//s* " + section + " file://s*//]");
-                    m = p.matcher(strLine);
-                    if(m.matches()) {
-                        isInSection = true;
-                    } else {
-                        isInSection = false;
-                    }
-                }
-
-                if(isInSection == true) {
-                    strLine = strLine.trim();
-                    String[] strArray = strLine.split("=");
-                    if(strArray.length == 1) {
-                        value = strArray[0].trim();
-                        if(value.equalsIgnoreCase(variable)) {
-                            value = "";
-                            return value;
-                        }
-                    } else if(strArray.length == 2) {
-                        value = strArray[0].trim();
-                        if(value.equalsIgnoreCase(variable)) {
-                            value = strArray[1].trim();
-                            return value;
-                        }
-                    } else if(strArray.length > 2) {
-                        value = strArray[0].trim();
-                        if(value.equalsIgnoreCase(variable)) {
-                            value = strLine.substring(strLine.indexOf("=") + 1).trim();
-                            return value;
-                        }
-                    }
-                }
-            }
-        } finally {
-            bufferedReader.close();
+        if(result.contains(";")){
+            result = result.substring(0, result.indexOf(";"));
         }
-        return defaultValue;
+
+        if(result.contains("#")){
+            result = result.substring(0, result.indexOf("#"));
+        }
+
+        return result.trim();
     }
 
 
 
-    /**
-     * 修改ini配置文件中变量的值
-     *  @param  file 配置文件的路径
-     *  @param  section 要修改的变量所在段名称
-     *  @param  variable 要修改的变量名称
-     *  @param  value 变量的新值
-     *  @throws  IOException 抛出文件操作可能出现的io异常
-     */
-    public static boolean setProfileString(String file, String section, String variable, String value) {
-        String fileContent, allLine, strLine, newLine, remarkStr;
-        String getValue;
-        BufferedReader bufferedReader = null;
+    public static Map<String,Object> readIni(String filename){
+        Map<String, List<String>> listResult=new HashMap<>();
+        Map<String,Object> result=new HashMap();
+        String globalSection = "global";
+
+        File file = new File(filename);
+        BufferedReader reader=null;
         try {
-            bufferedReader = new BufferedReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        boolean isInSection = false ;
-        fileContent = "";
+            reader=new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            String str = null;
+            String currentSection = globalSection; //处理缺省的section
+            List<String> currentProperties = new ArrayList<>();
+            boolean lineContinued = false;
+            String tempStr = null;
 
-        try {
-            while((allLine = bufferedReader.readLine()) != null) {
-                allLine = allLine.trim();
-                if(allLine.split("[;]").length > 1) {
-                    remarkStr=";"+ allLine.split(";")[1];
-                } else {
-                    remarkStr = "";
-                }
-                strLine = allLine.split(";")[0];
+            //一次读入一行（非空），直到读入null为文件结束
+            //先全部放到listResult<String, List>中
+            while ((str = reader.readLine()) != null) {
+                str = removeIniComments(str).trim(); //去掉尾部的注释、去掉首尾空格
 
-                strLine = allLine.trim();
-                Pattern p;
-                Matcher m;
-                p = Pattern.compile("file://[//s*.*//s*//]");
-                m = p.matcher((strLine));
-
-                if(m.matches()) {
-                    p = Pattern.compile("file://[//s*" + section + "file://s*//]");
-                    m = p.matcher(strLine);
-                    if(m.matches()) {
-                        isInSection = true;
-                    } else{
-                        isInSection = false;
-                    }
+                if("".equals(str)||str==null){
+                    continue;
                 }
 
-                if(isInSection == true) {
-                    strLine = strLine.trim();
-                    String[] strArray = strLine.split("=");
-                    getValue = strArray[0].trim();
-                    if(getValue.equalsIgnoreCase(variable)) {
-                        newLine = getValue + "=" + value + " " + remarkStr;
-                        fileContent += newLine + "\r\n";
-                        while((allLine = bufferedReader.readLine()) != null) {
-                            fileContent += allLine + "\r\n";
+                //如果前一行包括了连接符'\'
+                if(lineContinued == true){
+                    str = tempStr + str;
+                }
+
+                //处理行连接符'\'
+                if(str.endsWith("\\")){
+                    lineContinued = true;
+                    tempStr = str.substring(0,str.length()-1);
+                    continue;
+                }else {
+                    lineContinued = false;
+                }
+
+                //是否一个新section开始了
+                if(str.startsWith("[") && str.endsWith("]")){
+                    String newSection = str.substring(1, str.length()-1).trim();
+
+                    //如果新section不是现在的section，则把当前section存进listResult中
+                    if(!currentSection.equals(newSection)){
+                        listResult.put(currentSection, currentProperties);
+                        currentSection = newSection;
+
+                        //新section是否重复的section
+                        //如果是，则使用原来的list来存放properties
+                        //如果不是，则new一个List来存放properties
+                        currentProperties=listResult.get(currentSection);
+                        if(currentProperties==null){
+                            currentProperties = new ArrayList<>();
                         }
-                        bufferedReader.close();
-                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
-                        bufferedWriter.write(fileContent);
-                        bufferedWriter.flush();
-                        bufferedWriter.close();
-
-                        return true;
                     }
+                }else{
+                    currentProperties.add(str);
                 }
-
-                fileContent += allLine + "\r\n";
             }
-        } catch (IOException ie) {
-            ie.printStackTrace();
+            //把最后一个section存进listResult中
+            listResult.put(currentSection, currentProperties);
+
+            reader.close();
+
+
+        }catch (IOException e) {
+            e.printStackTrace();
         } finally {
-            try {
-                bufferedReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
             }
         }
 
-        return false;
+
+        //整理拆开name=value对，并存放到MAP中：
+        //从listResult<String, List>中，看各个list中的元素是否包含等号“=”，如果包含，则拆开并放到Map中
+        //整理后，把结果放进result<String, Object>中
+        for(String key : listResult.keySet()){
+            List<String> tempList = listResult.get(key);
+
+            //空section不放到结果里面
+            if(tempList==null||tempList.size()==0){
+                continue;
+            }
+
+            if(tempList.get(0).contains("=")){ //name=value对，存放在MAP里面
+                Map<String, String> properties = new HashMap<>();
+                for(String s : tempList){
+                    int delimiterPos = s.indexOf("=");
+                    //处理等号前后的空格
+                    properties.put(s.substring(0,delimiterPos).trim(), s.substring(delimiterPos+1, s.length()).trim());
+                }
+                result.put(key, properties);
+            }else{ //只有value，则获取原来的list
+                result.put(key, listResult.get(key));
+            }
+        }
+
+        return result;
+
+
     }
 
     /**
@@ -219,8 +198,13 @@ public class IniUtil {
         }
     }
 
-    public static void main(String[] args) {
-        IniUtil.writeFile("src/main/resources/sever.log","test",1);
+    public static void main(String[] args) throws IOException {
+//        IniUtil.writeFile("src/main/resources/sever.log","",1);
+        String IniPath = IniUtil.class.getClassLoader().getResource("sever.ini").getFile();
+        Map<String, Object> stringObjectMap = IniUtil.readIni(IniPath);
+        Map sever = (Map) stringObjectMap.get("sever");
+        System.out.println("sever.get = " + sever);
+        System.out.println(sever.get("logpath"));
     }
 
 }

@@ -49,38 +49,26 @@ public class SlaveService {
     private static String logPath;
 
 
-
-
     //启动类
-    @PostConstruct
-    private void starts() {
+    static {
         System.out.println("==============================开始读取配置文件===============================");
-        try {
-            String IniPath = SlaveService.class.getClassLoader().getResource("sever.ini").getFile();
-            //ip
-            String ip = IniUtil.getProfileString(IniPath,"sever","ip","");
-            //name
-            String name = IniUtil.getProfileString(IniPath,"sever","name","");
-            //port
-            String port = IniUtil.getProfileString(IniPath,"sever","port","8080");
-            //state
-            String state = IniUtil.getProfileString(IniPath,"sever","state","1");
-            //timestamp
-            String timestamp = IniUtil.getProfileString(IniPath,"sever","timestamp","0");
-            //logpath
-            logPath = IniUtil.getProfileString(IniPath,"sever","logpath","D:/sever.log").toString();
-            System.out.println("ip:"+ip);
-            System.out.println("name:"+name);
-            System.out.println("port:"+port);
-            System.out.println("state:"+state);
-            System.out.println("timestamp:"+timestamp);
-            System.out.println("logPath:"+logPath);
-            MAIN_MASTER = new Server(ip, name, port, Integer.parseInt(state),Integer.parseInt(timestamp));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String IniPath = SlaveService.class.getClassLoader().getResource("sever.ini").getFile();
+        Map<String, Object> iniMap = IniUtil.readIni(IniPath);
+        Map sever = (Map) iniMap.get("sever");
+        System.out.println(sever);
 
+        //logpath
+        logPath = sever.get("logpath").toString();
+
+        System.out.println("ip:" + sever.get("ip"));
+        System.out.println("name:" + sever.get("name"));
+        System.out.println("port:" + sever.get("port"));
+        System.out.println("state:" + sever.get("state"));
+        System.out.println("timestamp:" + sever.get("timestamp"));
+        System.out.println("logPath:" + logPath);
+
+        MAIN_MASTER = new Server(sever.get("ip").toString(), sever.get("name").toString(), sever.get("port").toString(), Integer.parseInt(sever.get("state").toString()), Integer.parseInt(sever.get("timestamp").toString()));
 
         // 开机的 主服务器
         MASTER = MAIN_MASTER;
@@ -97,25 +85,25 @@ public class SlaveService {
             return;
         System.out.println("===================");
         System.out.println("||心跳开始\t\t||");
-        System.out.println("||主服务器IP:"+ MASTER.getIp()+"\t\t||");
-        System.out.println("||主服务器port:"+ MASTER.getPort()+"\t\t||");
+        System.out.println("||主服务器IP:" + MASTER.getIp() + "\t\t||");
+        System.out.println("||主服务器port:" + MASTER.getPort() + "\t\t||");
         System.out.println("--------------------------");
-        System.out.println("||当前服务器IP:"+ myServer.getIp()+"\t\t||");
-        System.out.println("||当前服务器port:"+ myServer.getPort()+"\t\t||");
+        System.out.println("||当前服务器IP:" + myServer.getIp() + "\t\t||");
+        System.out.println("||当前服务器port:" + myServer.getPort() + "\t\t||");
         System.out.println("===================");
 
-        String time = "===================="+new Date()+"====================";
+        String time = "====================" + new Date() + "====================";
         //写入日志
         //写入时间
-        IniUtil.writeFile(logPath,time,logCount);
-        IniUtil.writeFile(logPath,"===================",logCount);
-        IniUtil.writeFile(logPath,"||心跳开始\t\t||",logCount);
-        IniUtil.writeFile(logPath,"||主服务器IP:"+ MASTER.getIp()+"\t\t||",logCount);
-        IniUtil.writeFile(logPath,"||主服务器port:"+ MASTER.getPort()+"\t\t||",logCount);
-        IniUtil.writeFile(logPath,"--------------------------",logCount);
-        IniUtil.writeFile(logPath,"||当前服务器IP:"+ myServer.getIp()+"\t\t||",logCount);
-        IniUtil.writeFile(logPath,"||当前服务器port:"+ myServer.getPort()+"\t\t||",logCount);
-        IniUtil.writeFile(logPath,"===================",logCount);
+        IniUtil.writeFile(logPath, time, logCount);
+        IniUtil.writeFile(logPath, "===================", logCount);
+        IniUtil.writeFile(logPath, "||心跳开始\t\t||", logCount);
+        IniUtil.writeFile(logPath, "||主服务器IP:" + MASTER.getIp() + "\t\t||", logCount);
+        IniUtil.writeFile(logPath, "||主服务器port:" + MASTER.getPort() + "\t\t||", logCount);
+        IniUtil.writeFile(logPath, "--------------------------", logCount);
+        IniUtil.writeFile(logPath, "||当前服务器IP:" + myServer.getIp() + "\t\t||", logCount);
+        IniUtil.writeFile(logPath, "||当前服务器port:" + myServer.getPort() + "\t\t||", logCount);
+        IniUtil.writeFile(logPath, "===================", logCount);
 
         String URL = "http://" + MASTER.getIp() + ":" + MASTER.getPort() + "/cloud_war_exploded/heartbeat";
         // 能不能发送请求
@@ -156,23 +144,22 @@ public class SlaveService {
                 //让连接失败次数重新归零
                 SlaveService.failed = 0;
                 // 执行霸道选举 换主策略
-                MASTER= Vote.updateMaster(SLAVE_list, new CircleVoteRole());
-            }else {
+                MASTER = Vote.updateMaster(SLAVE_list, new CircleVoteRole());
+            } else {
                 SlaveService.failed += 1;
                 System.err.println("==========");
                 System.err.println("|| 与主服务器连接出现异常||");
-                System.err.println("|| 异常次数为："+ SlaveService.failed +"\t||");
+                System.err.println("|| 异常次数为：" + SlaveService.failed + "\t||");
                 System.err.println("==========");
 
                 //写入日志
-                IniUtil.writeFile(logPath,"==========",logCount);
-                IniUtil.writeFile(logPath,"|| 与主服务器连接出现异常||",logCount);
-                IniUtil.writeFile(logPath,"|| 异常次数为："+ SlaveService.failed +"\t||",logCount);
-                IniUtil.writeFile(logPath,"==========",logCount);
+                IniUtil.writeFile(logPath, "==========", logCount);
+                IniUtil.writeFile(logPath, "|| 与主服务器连接出现异常||", logCount);
+                IniUtil.writeFile(logPath, "|| 异常次数为：" + SlaveService.failed + "\t||", logCount);
+                IniUtil.writeFile(logPath, "==========", logCount);
             }
 
-        }
-        finally {
+        } finally {
             logCount++;
         }
 
@@ -190,11 +177,10 @@ public class SlaveService {
         }
         if (SLAVE_list.size() / 2 < item) {  //更新主
 //            updateMaster();
-            MASTER= Vote.updateMaster(SLAVE_list, new CircleVoteRole());
+            MASTER = Vote.updateMaster(SLAVE_list, new CircleVoteRole());
         }
 
     }
-
 
 
     /**
@@ -208,7 +194,7 @@ public class SlaveService {
     /**
      * @desc
      */
-    public static Server getmyserverinfo(){
+    public static Server getmyserverinfo() {
         return myServer;
     }
 
@@ -220,7 +206,7 @@ public class SlaveService {
     public static String getIp() {
         try {
             InetAddress addr = InetAddress.getLocalHost();
-            return  addr.getHostAddress();
+            return addr.getHostAddress();
 //            return "10.203.10.26";
 //            System.out.println("IP地址：" + addr.getHostAddress() + "，主机名：" + addr.getHostName());
         } catch (Exception e) {
@@ -230,13 +216,13 @@ public class SlaveService {
     }
 
     /**
-     * @desc 获取本机名称
      * @return
+     * @desc 获取本机名称
      */
     public static String getHostName() {
         try {
             InetAddress addr = InetAddress.getLocalHost();
-            return  addr.getHostName();
+            return addr.getHostName();
 //            return "10.203.10.26";
 //            System.out.println("IP地址：" + addr.getHostAddress() + "，主机名：" + addr.getHostName());
         } catch (Exception e) {
