@@ -34,8 +34,6 @@ public class VoteRoleBinary implements VoteRole {
                 char temp = name.charAt(i);
                 ascLen += Integer.valueOf(temp);
             }
-            System.out.println("ascLen:"+ascLen);
-            System.out.println("endName:"+endName);
             //判断后更改
             if(ascLen > endName){
                 endName = ascLen;
